@@ -21,14 +21,6 @@ jobs:
           {os: ubuntu-latest, dist: cp39-manylinux_x86_64},
           {os: ubuntu-latest, dist: cp310-manylinux_x86_64},
           {os: ubuntu-latest, dist: cp311-manylinux_x86_64},
-          {os: macos-latest, dist: cp38-macosx_x86_64, macosarch: x86_64},
-          {os: macos-latest, dist: cp39-macosx_x86_64, macosarch: x86_64},
-          {os: macos-latest, dist: cp310-macosx_x86_64, macosarch: x86_64},
-          {os: macos-latest, dist: cp311-macosx_x86_64, macosarch: x86_64},
-          {os: macos-latest, dist: cp38-macosx_arm64, macosarch: arm64},
-          {os: macos-latest, dist: cp39-macosx_arm64, macosarch: arm64},
-          {os: macos-latest, dist: cp310-macosx_arm64, macosarch: arm64},
-          {os: macos-latest, dist: cp311-macosx_arm64, macosarch: arm64},
           {os: windows-latest, dist: cp38-win_amd64},
           {os: windows-latest, dist: cp39-win_amd64},
           {os: windows-latest, dist: cp310-win_amd64},
@@ -68,18 +60,3 @@ jobs:
       with:
         name: cibw-sdist
         path: dist/*.tar.gz
-
-  upload_all:
-    needs: [build_wheels, make_sdist]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/download-artifact@v4
-      with:
-        pattern: cibw-*
-        path: dist
-        merge-multiple: true
-    - uses: pypa/gh-action-pypi-publish@v1.8.14
-      with:
-        skip_existing: true
-        user: __token__
-        password: ${{ secrets.pypi_password }}
