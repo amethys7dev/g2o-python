@@ -13,6 +13,8 @@ before-build = [
   "choco install eigen cmake ninja",
   "pip install delvewheel",
 ]
+repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"
 
 [tool.cibuildwheel.linux]
 before-build = "yum install -y blas-devel flann-devel eigen3-devel cmake ninja"
+repair-wheel-command = "auditwheel repair -w {dest_dir} {wheel}"
